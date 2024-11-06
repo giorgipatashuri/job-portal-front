@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ResumeInfoContext } from "./context/ResumeInfoContext.tsx";
 import MyResume from "./pages/MyResume.tsx";
 import JobVacancies from "./pages/JobVacancies.tsx";
+import Login from "./pages/Login.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/vacancy",
     element: <JobVacancies />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 

@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="bg-white shadow sticky ">
       <div className="max-w-7xl container mx-auto px-4 sm:px-6 lg:px-8  flex justify-between items-center">
@@ -31,7 +33,11 @@ const Header = () => {
           >
             <span className="text-green">ვაკანსიის დამატება</span>
           </Button>
-          <Button variant="outline" className="rounded-xl">
+          <Button
+            variant="outline"
+            className="rounded-xl"
+            onClick={() => navigate("/login")}
+          >
             შესვლა
           </Button>
         </nav>

@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import HrBanner from "./components/HrBanner";
 import { Outlet } from "react-router-dom";
 import Benefits from "./components/Benefits";
+import Login from "./pages/Login";
 
 function App() {
   return (
