@@ -2,11 +2,6 @@ import { useState } from "react";
 import Registration from "./Registration";
 
 const Login = () => {
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
-
-  const openRegistrationModal = () => setIsRegistrationOpen(true);
-  const closeRegistrationModal = () => setIsRegistrationOpen(false);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
@@ -20,28 +15,27 @@ const Login = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">პასვორდი</label>
+            <label className="block text-gray-700">პარლი</label>
             <input
               type="password"
               className="w-full p-2 border border-gray-300 rounded"
             />
           </div>
-          <button className="w-full text-white py-2 rounded bg-emerald-600 hover:bg-emerald-500">
+          <button className="w-full text-white py-2 rounded bg-green hover:bg-emerald-500">
             შესვლა
           </button>
         </form>
         <p className="mt-4 text-center">
           არ გაქვთ ექაუნთი?{" "}
-          <button
-            onClick={openRegistrationModal}
-            className="text-emerald-500 underline"
-          >
-            დარეგისტრირდი
+          <button>
+            <a className=" text-green" href="/register">
+              დარეგისტრირდი
+            </a>
           </button>
         </p>
       </div>
 
-      {isRegistrationOpen && (
+      {/* {isRegistrationOpen && (
         <div className="fixed inset-0 bg-transparent bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md relative">
             <button
@@ -53,7 +47,7 @@ const Login = () => {
             <Registration />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
