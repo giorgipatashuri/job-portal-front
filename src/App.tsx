@@ -8,6 +8,7 @@ import HrBanner from "./components/HrBanner";
 import { Outlet } from "react-router-dom";
 import Benefits from "./components/Benefits";
 import Login from "./pages/Login";
+import CvSection from "./components/CvSection";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Banner />
       </div>
       <JobCategories />
+      <CvSection />
       <div className="max-w-screen-2xl container mx-auto py-20 xl:px-24 px-4 md:py-20 py-14 ">
         <HrBanner />
       </div>
