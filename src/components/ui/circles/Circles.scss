@@ -1,0 +1,37 @@
+.circles {
+  position: relative; /* Ensure proper positioning of child elements */
+
+  > div {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%; /* Create circular shapes */
+    animation: circleAnim 5s infinite ease-in-out;
+
+    &:first-child {
+      left: -200px;
+      top: -200px;
+      box-shadow: 160px 100px 400px rgba(24, 149, 65, 0.8);
+    }
+
+    &:last-child {
+      right: -200px;
+      bottom: -200px;
+      box-shadow: -160px -100px 400px rgba(24, 149, 65, 0.8);
+    }
+  }
+}
+
+@keyframes circleAnim {
+  0% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+}
