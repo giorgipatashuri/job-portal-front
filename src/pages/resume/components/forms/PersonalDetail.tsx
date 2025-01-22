@@ -31,10 +31,6 @@ function PersonalDetail({ enabledNext }: PersonalDetailProps) {
   });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log("---", resumeInfo);
-  }, [resumeInfo]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 

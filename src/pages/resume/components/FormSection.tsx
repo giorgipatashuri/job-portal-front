@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import PersonalDetail from "./forms/PersonalDetail";
@@ -7,10 +7,15 @@ import Skills from "./forms/Skills";
 import Experience from "./forms/Experience";
 import Education from "./forms/Education";
 import { useNavigate } from "react-router-dom";
+import { ResumeInfoContext } from "../../../context/ResumeInfoContext";
+import { useCreateResumeQuery } from "../../../api/resumeQueries";
+import { axiosInstance } from "../../../lib/api";
 
 const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
+  const { resumeInfo } = useContext(ResumeInfoContext);
+  // const { data, error, isLoading } = useCreateResumeQuery();
   const navigate = useNavigate();
 
   // Define form sections array for easier management
@@ -38,7 +43,21 @@ const FormSection = () => {
       setActiveFormIndex(activeFormIndex - 1);
     }
   };
-
+  const submit = async () => {
+    console.log("test", resumeInfo);
+    try {
+      const { data } = await axiosInstance.post("/cv", resumeInfo);
+      return data;
+    } catch (error: any) {
+      throw {
+        message:
+          error?.response?.data?.message ||
+          error?.message ||
+          "Failed to create resume",
+        status: error?.response?.status || 500,
+      };
+    }
+  };
   // Get current form component
   const CurrentForm = formSections.find(
     (section) => section.id === activeFormIndex
@@ -69,7 +88,7 @@ const FormSection = () => {
           <Button
             disabled={!enableNext}
             size="sm"
-            onClick={handleNext}
+            onClick={isLastStep ? submit : handleNext}
             className="flex items-center gap-2"
           >
             {isLastStep ? "დასასრული" : "შემდეგ"}

@@ -70,7 +70,6 @@ function Education({ enabledNext }: EducationProps) {
       ...prev,
       education: educationList,
     }));
-    console.log(resumeInfo);
   }, [educationList, setResumeInfo]);
 
   const handleChange = (
@@ -133,7 +132,7 @@ function Education({ enabledNext }: EducationProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="col-span-2">
                   <label className="block text-sm font-medium mb-1">
-                    უნივერსიტეტის სახელი<span className="text-red-500">*</span>
+                    სასწავლებლის სახელი<span className="text-red-500">*</span>
                   </label>
                   <Input
                     name="universityName"

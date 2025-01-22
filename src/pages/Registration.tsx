@@ -1,10 +1,12 @@
 import { useState } from "react";
+import Circles from "../components/ui/circles/Circles";
 
 function Registration() {
   const [activeTab, setActiveTab] = useState("user");
 
   return (
-    <div className=" flex items-center justify-center ">
+    <div className=" flex items-center justify-center w-screen h-screen">
+      {/* <Circles /> */}
       <div className="bg-white shadow-lg rounded-lg w-full max-w-lg p-8">
         <div className="flex justify-center mb-6">
           <button
@@ -53,7 +55,7 @@ function Registration() {
                 className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
-            <button className="bg-emerald-600 hover:bg-emerald-500 py-2 px-8 text-white w-full rounded ">
+            <button className="bg-green hover:bg-emerald-500 py-2 px-8 text-white w-full rounded ">
               რეგისტრაცია
             </button>
           </form>
@@ -90,7 +92,7 @@ function Registration() {
                 className="w-full p-2 border border-gray-300 rounded"
               />
             </div>
-            <button className="bg-emerald-600 hover:bg-emerald-500 py-2 px-8 text-white w-full rounded ">
+            <button className="bg-green hover:bg-emerald-500 py-2 px-8 text-white w-full rounded ">
               რეგისტრაცია
             </button>
           </form>
