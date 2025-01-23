@@ -1,52 +1,36 @@
+import { Mail, Phone } from "lucide-react";
 import React from "react";
+import { ResumeDataType } from "../../../../types/resume.type";
 
-function PersonalDetailPreview({ resumeInfo }: any) {
+interface PersonalDetailPreviewProps {
+  resumeInfo: ResumeDataType; // Replace ResumeDataType with the correct type
+}
+
+function PersonalDetailPreview({ resumeInfo }: PersonalDetailPreviewProps) {
   return (
-    <div>
-      <h2
-        className="font-bold text-xl text-center"
-        style={{
-          color: resumeInfo?.themeColor,
-        }}
-      >
-        {resumeInfo?.firstName} {resumeInfo?.lastName}
-      </h2>
-      <h2 className="text-center text-sm font-medium">
-        {resumeInfo?.jobTitle}
-      </h2>
-      <h2
-        className="text-center font-normal text-xs"
-        style={{
-          color: resumeInfo?.themeColor,
-        }}
-      >
-        {resumeInfo?.address}
-      </h2>
+    <div className="bg-green text-white px-8 py-12">
+      {/* Header Section */}
+      <div className="">
+        <h1 className="text-2xl font-bold">
+          {resumeInfo?.firstName} {resumeInfo?.lastName}
+        </h1>
+        <h2 className="text-xl mt-2 text-blue-100">{resumeInfo?.jobTitle}</h2>
 
-      <div className="flex justify-between">
-        <h2
-          className="font-normal text-xs"
-          style={{
-            color: resumeInfo?.themeColor,
-          }}
-        >
-          {resumeInfo?.phone}
-        </h2>
-        <h2
-          className="font-normal text-xs"
-          style={{
-            color: resumeInfo?.themeColor,
-          }}
-        >
-          {resumeInfo?.email}
-        </h2>
+        <div className="mt-4 flex flex-wrap gap-4">
+          {resumeInfo?.phone && (
+            <div className="flex items-center gap-2">
+              <Phone size={18} />
+              <span>{resumeInfo?.phone}</span>
+            </div>
+          )}
+          {resumeInfo?.email && (
+            <div className="flex items-center gap-2">
+              <Mail size={18} />
+              <span>{resumeInfo?.email}</span>
+            </div>
+          )}
+        </div>
       </div>
-      <hr
-        className="border-[1.5px] my-2"
-        style={{
-          borderColor: resumeInfo?.themeColor,
-        }}
-      />
     </div>
   );
 }

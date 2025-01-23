@@ -5,70 +5,60 @@ import ExperiencePreview from "./preview/ExperiencePreview";
 import EducationalPreview from "./preview/EducationalPreview";
 import SkillsPreview from "./preview/SkillsPreview";
 import { ResumeInfoContext } from "../../../context/ResumeInfoContext";
+import { useParams } from "react-router-dom";
+import api from "../../../lib/api";
+import { ResumeDataType } from "../../../types/resume.type";
 
-interface Skill {
-  name: string;
-  rating: number;
-}
-
-interface Experience {
-  title: string;
-  companyName: string;
-  city: string;
-  startDate: string;
-  endDate?: string;
-  currentlyWorking?: boolean;
-  workSummery?: string;
-}
-
-interface Education {
-  universityName: string;
-  degree: string;
-  major: string;
-  startDate: string;
-  endDate: string;
-  description?: string;
-}
-
-interface ResumeInfo {
-  themeColor?: string;
-  skills?: Skill[];
-  Experience?: Experience[];
-  education?: Education[];
-}
-
-const ResumePreview: React.FC = () => {
-  const { resumeInfo } = useContext(ResumeInfoContext) as {
-    resumeInfo: ResumeInfo;
+interface ResumePreviewProps {}
+const ResumePreview: React.FC<ResumePreviewProps> = () => {
+  let { id } = useParams<{ id: string }>();
+  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext) as {
+    resumeInfo: ResumeDataType;
+    setResumeInfo: (info: ResumeDataType) => void;
   };
-
+  const fetchResume = async () => {
+    try {
+      const { data } = await api.get(`/api/cv/${id}`);
+      setResumeInfo(data);
+    } catch (error) {
+      console.error("Error fetching resume:", error);
+    }
+  };
   useEffect(() => {
-    console.log("resume", resumeInfo);
+    if (id) {
+      fetchResume();
+    }
   }, []);
 
+  useEffect(() => {
+    if (id) {
+      fetchResume();
+    }
+  }, [id, setResumeInfo]);
+
   return (
-    <div
-      className="shadow-lg h-full p-14 border-t-[20px]  text-wrap"
-      style={{
-        borderColor: resumeInfo?.themeColor,
-      }}
-    >
-      {/* Personal Detail  */}
-      <PersonalDetailPreview resumeInfo={resumeInfo} />
-      {/* Summery  */}
-      <SummeryPreview resumeInfo={resumeInfo} />
-      {/* Professional Experience  */}
-      {(resumeInfo?.Experience?.length ?? 0) > 0 && (
-        <ExperiencePreview resumeInfo={resumeInfo} />
-      )}
-      {/* Educational  */}
-      {(resumeInfo?.education?.length ?? 0) > 0 && (
-        <EducationalPreview resumeInfo={resumeInfo} />
-      )}
-      {/* Skills  */}
-      {(resumeInfo?.skills?.length ?? 0) > 0 && (
-        <SkillsPreview resumeInfo={resumeInfo} />
-      )}
+    <div className="min-h-screen  py-8 px-4 " style={{}}>
+      <div
+        id="resume-preview-id"
+        className="max-w-4xl mx-auto min-h-[800px]  bg-white shadow-lg rounded-lg overflow-hidden"
+      >
+        <PersonalDetailPreview resumeInfo={resumeInfo} />
+        <div className="p-8">
+          <SummeryPreview resumeInfo={resumeInfo} />
+
+          {(resumeInfo?.experiences?.length ?? 0) > 0 && (
+            <ExperiencePreview resumeInfo={resumeInfo} />
+          )}
+
+          {(resumeInfo?.education?.length ?? 0) > 0 && (
+            <EducationalPreview resumeInfo={resumeInfo} />
+          )}
+
+          {(resumeInfo?.skills?.length ?? 0) > 0 && (
+            <SkillsPreview resumeInfo={resumeInfo} />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

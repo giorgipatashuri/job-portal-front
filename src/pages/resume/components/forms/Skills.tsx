@@ -4,6 +4,8 @@ import { toast } from "sonner";
 import { ResumeInfoContext } from "../../../../context/ResumeInfoContext";
 import { Input } from "../../../../components/ui/input";
 import { Button } from "../../../../components/ui/button";
+import { Rating } from "@smastrom/react-rating";
+import "@smastrom/react-rating/style.css";
 
 interface Skill {
   name: string;
@@ -114,13 +116,15 @@ function Skills() {
               />
             </div>
             <div className="min-w-[120px]">
-              {/* Rating component placeholder - uncomment when ready to use
-              <label className="block text-sm font-medium mb-1">Proficiency</label>
+              Rating component placeholder - uncomment when ready to use
+              <label className="block text-sm font-medium mb-1">
+                Proficiency
+              </label>
               <Rating
                 style={{ maxWidth: 120 }}
                 value={item.rating}
-                onChange={(v) => handleChange(index, "rating", v)}
-              /> */}
+                onChange={(v: any) => handleChange(index, "rating", v)}
+              />
             </div>
           </div>
         ))}
@@ -146,13 +150,6 @@ function Skills() {
             წაშლა
           </Button>
         </div>
-        <Button
-          onClick={onSave}
-          disabled={loading}
-          className="min-w-[100px] bg-green"
-        >
-          {loading ? <LoaderCircle className="animate-spin" /> : "შენახვა"}
-        </Button>
       </div>
     </div>
   );

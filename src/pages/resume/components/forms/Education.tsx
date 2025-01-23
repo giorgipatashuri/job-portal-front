@@ -5,15 +5,7 @@ import { ResumeInfoContext } from "../../../../context/ResumeInfoContext";
 import { Textarea } from "../../../../components/ui/textarea";
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
-
-interface Education {
-  universityName: string;
-  degree: string;
-  major: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-}
+import type { Education } from "../../../../types/resume.type";
 
 interface ResumeInfoContextType {
   resumeInfo: {
@@ -55,8 +47,8 @@ function Education({ enabledNext }: EducationProps) {
   useEffect(() => {
     const isValid = educationList.every(
       (edu) =>
-        edu.universityName.trim() &&
-        edu.degree.trim() &&
+        edu.universityName?.trim() &&
+        edu.degree?.trim() &&
         edu.startDate &&
         edu.endDate
     );
@@ -64,7 +56,6 @@ function Education({ enabledNext }: EducationProps) {
     enabledNext(isValid);
   }, [educationList, enabledNext]);
 
-  // Update context when education list changes
   useEffect(() => {
     setResumeInfo((prev: any) => ({
       ...prev,
@@ -137,7 +128,7 @@ function Education({ enabledNext }: EducationProps) {
                   <Input
                     name="universityName"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.universityName}
+                    value={item.universityName || ""}
                     required
                     placeholder="შეიყვანე უნივერსიტეტის სახელი"
                   />
@@ -150,7 +141,7 @@ function Education({ enabledNext }: EducationProps) {
                   <Input
                     name="degree"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.degree}
+                    value={item.degree || ""}
                     required
                     placeholder="შეიყვანე განათლების საფეხური"
                   />
@@ -163,7 +154,7 @@ function Education({ enabledNext }: EducationProps) {
                   <Input
                     name="major"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.major}
+                    value={item.major || ""}
                     placeholder="შეიყვანე ფაკულტეტი"
                   />
                 </div>
@@ -176,7 +167,7 @@ function Education({ enabledNext }: EducationProps) {
                     type="date"
                     name="startDate"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.startDate}
+                    value={item.startDate || ""}
                     required
                   />
                 </div>
@@ -189,7 +180,7 @@ function Education({ enabledNext }: EducationProps) {
                     type="date"
                     name="endDate"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.endDate}
+                    value={item.endDate || ""}
                     required
                   />
                 </div>
@@ -201,7 +192,7 @@ function Education({ enabledNext }: EducationProps) {
                   <Textarea
                     name="description"
                     onChange={(e) => handleChange(e, index)}
-                    value={item.description}
+                    value={item.description || ""}
                     placeholder="აღწერე შენი გამოცდილება"
                     rows={3}
                   />
@@ -231,13 +222,6 @@ function Education({ enabledNext }: EducationProps) {
               - წაშლა
             </Button>
           </div>
-          <Button
-            disabled={loading || !isFormValid}
-            onClick={handleSave}
-            className="bg-green text-white hover:bg-green/90 min-w-[100px]"
-          >
-            {loading ? <LoaderCircle className="animate-spin" /> : "შენახვა"}
-          </Button>
         </div>
       </div>
     </div>

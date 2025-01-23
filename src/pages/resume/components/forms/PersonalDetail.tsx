@@ -129,11 +129,6 @@ function PersonalDetail({ enabledNext }: PersonalDetailProps) {
             />
           </div>
         </div>
-        <div className="mt-3 flex justify-end">
-          <Button type="submit" disabled={loading} className="bg-green">
-            {loading ? <LoaderCircle className="animate-spin" /> : "შენახვა"}
-          </Button>
-        </div>
       </form>
     </div>
   );

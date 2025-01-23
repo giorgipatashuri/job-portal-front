@@ -1,53 +1,43 @@
 import React from "react";
-
-interface Skill {
-  name: string;
-  rating: number;
-}
-
-interface ResumeInfo {
-  themeColor?: string;
-  skills?: Skill[];
-}
+import { ResumeDataType, Skill } from "../../../../types/resume.type";
+import { Star } from "lucide-react";
 
 interface SkillsPreviewProps {
-  resumeInfo: ResumeInfo;
+  resumeInfo: ResumeDataType;
 }
 
 const SkillsPreview: React.FC<SkillsPreviewProps> = ({ resumeInfo }) => {
   return (
-    <div className="my-6">
-      <h2
-        className="text-center font-bold text-sm mb-2"
-        style={{
-          color: resumeInfo?.themeColor,
-        }}
-      >
-        უნარები
-      </h2>
-      <hr
-        style={{
-          borderColor: resumeInfo?.themeColor,
-        }}
-      />
-
-      <div className="grid grid-cols-2 gap-3 my-4">
-        {resumeInfo?.skills?.map((skill, index) => (
-          <div key={index} className="flex items-center justify-between">
-            <h2 className="text-xs">{skill.name}</h2>
-            {/* <div className="h-2 bg-gray-200 w-[120px]">
+    <section className="mb-8">
+      <h3 className="text-2xl font-semibold mb-4">Skills</h3>
+      <div className="flex flex-wrap gap-3">
+        {resumeInfo.skills?.map(
+          (skill, skillIndex) =>
+            skill?.name &&
+            skill?.rating !== null && (
               <div
-                className="h-2"
-                style={{
-                  backgroundColor: resumeInfo?.themeColor,
-                  width: skill.rating * 20 + "%",
-                }}
-              ></div>
-            </div> */}
-          </div>
-        ))}
+                key={skillIndex}
+                className="bg-gray-100 px-4 py-2 rounded-full flex items-center gap-2"
+              >
+                <span>{skill.name}</span>
+                <div className="flex">
+                  {[...Array(5)].map((_, index) => (
+                    <Star
+                      key={index}
+                      size={16}
+                      className={
+                        index < (skill?.rating ?? 0)
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-gray-300"
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+            )
+        )}
       </div>
-    </div>
+    </section>
   );
 };
 

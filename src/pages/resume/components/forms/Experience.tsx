@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from "react";
 import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
 import RichTextEditor from "../RichTextEditor";
+import { Textarea } from "../../../../components/ui/textarea";
 
 type ExperienceType = {
   title: string;
@@ -13,7 +14,7 @@ type ExperienceType = {
   state: string;
   startDate: string;
   endDate: string;
-  workSummery: string;
+  workSummary: string;
 };
 
 const initialFormField: ExperienceType = {
@@ -23,7 +24,7 @@ const initialFormField: ExperienceType = {
   state: "",
   startDate: "",
   endDate: "",
-  workSummery: "",
+  workSummary: "",
 };
 
 function Experience({
@@ -37,8 +38,8 @@ function Experience({
 
   // Load initial data
   useEffect(() => {
-    if (resumeInfo?.Experience?.length > 0) {
-      setExperienceList(resumeInfo.Experience);
+    if (resumeInfo?.experiences?.length > 0) {
+      setExperienceList(resumeInfo.experiences);
     } else {
       // Initialize with one empty experience if none exists
       setExperienceList([{ ...initialFormField }]);
@@ -56,7 +57,7 @@ function Experience({
 
   const handleChange = (
     index: number,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setExperienceList((prevList) => {
@@ -80,7 +81,7 @@ function Experience({
   useEffect(() => {
     setResumeInfo((prevInfo: any) => ({
       ...prevInfo,
-      Experience: experienceList,
+      experiences: experienceList,
     }));
   }, [experienceList, setResumeInfo]);
 
@@ -89,7 +90,7 @@ function Experience({
     // Save to context
     setResumeInfo((prevInfo: any) => ({
       ...prevInfo,
-      Experience: experienceList,
+      experiences: experienceList,
     }));
 
     toast.success("გამოცდილება შენახულია");
@@ -161,6 +162,18 @@ function Experience({
                     onChange={(event) => handleChange(index, event)}
                   />
                 </div>
+                <div className="col-span-2">
+                  <label className="block text-sm font-medium mb-1">
+                    აღწერა
+                  </label>
+                  <Textarea
+                    name="workSummary"
+                    onChange={(event) => handleChange(index, event)}
+                    value={item.workSummary}
+                    placeholder="აღწერე შენი გამოცდილება"
+                    rows={3}
+                  />
+                </div>
               </div>
             </div>
           ))}
@@ -184,14 +197,6 @@ function Experience({
               - წაშლა
             </Button>
           </div>
-          <Button
-            onClick={handleSave}
-            disabled={loading}
-            className="bg-green text-white hover:bg-green/90"
-          >
-            {loading ? <LoaderCircle className="animate-spin mr-2" /> : null}
-            შენახვა
-          </Button>
         </div>
       </div>
     </div>

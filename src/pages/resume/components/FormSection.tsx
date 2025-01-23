@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import PersonalDetail from "./forms/PersonalDetail";
-import Summery from "./forms/Summery";
+import Summery from "./forms/Summary";
 import Skills from "./forms/Skills";
 import Experience from "./forms/Experience";
 import Education from "./forms/Education";
 import { useNavigate } from "react-router-dom";
 import { ResumeInfoContext } from "../../../context/ResumeInfoContext";
 import { useCreateResumeQuery } from "../../../api/resumeQueries";
-import { axiosInstance } from "../../../lib/api";
+import api from "../../../lib/api";
 
 const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
@@ -46,8 +46,8 @@ const FormSection = () => {
   const submit = async () => {
     console.log("test", resumeInfo);
     try {
-      const { data } = await axiosInstance.post("/cv", resumeInfo);
-      return data;
+      const { data } = await api.post("api/cv", resumeInfo);
+      navigate(`/resume/${data.id}`);
     } catch (error: any) {
       throw {
         message:
@@ -65,7 +65,7 @@ const FormSection = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex  items-center">
         <div className="text-lg font-semibold">
           {/* Step {activeFormIndex} of {formSections.length}:
           {
@@ -85,15 +85,6 @@ const FormSection = () => {
               უკან
             </Button>
           )}
-          <Button
-            disabled={!enableNext}
-            size="sm"
-            onClick={isLastStep ? submit : handleNext}
-            className="flex items-center gap-2"
-          >
-            {isLastStep ? "დასასრული" : "შემდეგ"}
-            {!isLastStep && <ArrowRight className="w-4 h-4" />}
-          </Button>
         </div>
       </div>
 
@@ -101,6 +92,17 @@ const FormSection = () => {
         {CurrentForm && (
           <CurrentForm enabledNext={(value: boolean) => setEnableNext(value)} />
         )}
+      </div>
+      <div className="flex  justify-end">
+        <Button
+          disabled={!enableNext}
+          size="sm"
+          onClick={isLastStep ? submit : handleNext}
+          className="flex items-center gap-2 bg-green self-end"
+        >
+          {isLastStep ? "დასასრული" : "შემდეგ"}
+          {!isLastStep && <ArrowRight className="w-4 h-4" />}
+        </Button>
       </div>
     </div>
   );
