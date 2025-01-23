@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../lib/api";
+import api from "../lib/api";
 
 export const useCreateResumeQuery = () => {
   return useQuery<any, any>({
@@ -10,7 +10,7 @@ export const useCreateResumeQuery = () => {
 
 const createResume = async (): Promise<any> => {
   try {
-    const { data } = await axiosInstance.post("/cv");
+    const { data } = await api.post("/cv");
     return data;
   } catch (error: any) {
     throw {
