@@ -11,6 +11,7 @@ export default {
       },
       colors: {
         green: "#4CAF50",
+        secGreen: "00E676",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
