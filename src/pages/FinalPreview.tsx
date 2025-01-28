@@ -5,6 +5,7 @@ import { ResumeInfoContext } from "../context/ResumeInfoContext";
 import { useParams } from "react-router-dom";
 import { ResumeDataType } from "../types/resume.type";
 import api from "../lib/api";
+import Header from "../components/Header";
 
 const FinalPreview = () => {
   const { id } = useParams<{ id: string }>();
@@ -43,6 +44,7 @@ const FinalPreview = () => {
 
   return (
     <>
+      <Header />
       <div className="max-w-4xl mx-auto flex justify-end mt-4">
         <Download
           username={resumeInfo.firstName || ""}
