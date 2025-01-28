@@ -18,7 +18,6 @@ const FormSection = () => {
   // const { data, error, isLoading } = useCreateResumeQuery();
   const navigate = useNavigate();
 
-  // Define form sections array for easier management
   const formSections = [
     { id: 1, component: PersonalDetail, title: "Personal Details" },
     { id: 2, component: Summery, title: "Summary" },
@@ -58,7 +57,6 @@ const FormSection = () => {
       };
     }
   };
-  // Get current form component
   const CurrentForm = formSections.find(
     (section) => section.id === activeFormIndex
   )?.component;

@@ -40,7 +40,6 @@ const Download = (props: { username: string; jobPosition: string }) => {
       let heightLeft = imgHeight;
 
       let position = 0;
-      9;
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 

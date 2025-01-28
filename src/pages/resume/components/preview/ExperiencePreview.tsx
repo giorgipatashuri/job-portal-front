@@ -8,7 +8,7 @@ export function formatDate(dateString: string): string {
   });
 }
 interface ExperiencePreviewProps {
-  resumeInfo: ResumeDataType; // Replace ResumeDataType with the correct type
+  resumeInfo: ResumeDataType;
 }
 const ExperiencePreview: React.FC<ExperiencePreviewProps> = ({
   resumeInfo,
@@ -28,11 +28,11 @@ const ExperiencePreview: React.FC<ExperiencePreviewProps> = ({
                     <span>{exp.companyName}</span>
                   </>
                 )}
-                {/* Separator only if companyName and city exist */}
+
                 {exp.companyName && exp.city && (
                   <span className="text-gray-400">|</span>
                 )}
-                {/* Conditionally render city with MapPin icon */}
+
                 {exp.city && (
                   <>
                     <MapPin size={18} />
@@ -42,7 +42,6 @@ const ExperiencePreview: React.FC<ExperiencePreviewProps> = ({
               </div>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
-              {/* Conditionally render start and end date with Calendar icon */}
               {exp.startDate && exp.endDate && (
                 <>
                   <Calendar size={18} />
@@ -53,7 +52,6 @@ const ExperiencePreview: React.FC<ExperiencePreviewProps> = ({
               )}
             </div>
           </div>
-          {/* Conditionally render work summary */}
           {exp.workSummary && (
             <p className="mt-3 text-gray-600">{exp.workSummary}</p>
           )}

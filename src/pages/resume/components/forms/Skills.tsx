@@ -64,15 +64,11 @@ function Skills() {
     try {
       setLoading(true);
 
-      // Validate skills
       const isValid = skillsList.every((skill) => skill.name.trim());
       if (!isValid) {
         toast.error("Please fill in all skill names");
         return;
       }
-
-      // Example API call (uncomment and adjust when ready)
-      // await saveSkills({ skills: skillsList });
 
       toast.success("Skills saved successfully");
     } catch (error) {
@@ -116,10 +112,7 @@ function Skills() {
               />
             </div>
             <div className="min-w-[120px]">
-              Rating component placeholder - uncomment when ready to use
-              <label className="block text-sm font-medium mb-1">
-                Proficiency
-              </label>
+              <label className="block text-sm font-medium mb-1"></label>
               <Rating
                 style={{ maxWidth: 120 }}
                 value={item.rating}
