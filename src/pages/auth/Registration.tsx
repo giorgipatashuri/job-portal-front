@@ -220,7 +220,7 @@ const Register = () => {
                   onValueChange={handleUserTypeChange}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select account type" />
+                    <SelectValue placeholder="აირჩიე მომხმარებლის ტიპი" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="USER">მომხმარებელი</SelectItem>
@@ -229,7 +229,11 @@ const Register = () => {
                 </Select>
               </div>
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button
+                type="submit"
+                className="w-full bg-green"
+                disabled={loading}
+              >
                 {loading
                   ? "მომხმარებლის შექმნა..."
                   : "შექმენი ახალი მომხმარებელი"}
