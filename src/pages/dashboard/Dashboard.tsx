@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import api from "../../lib/api";
+import { useNavigate } from "react-router-dom";
 
 // Skeleton component
 const Skeleton = ({ className }: any) => (
@@ -31,6 +32,7 @@ function Dashboard() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [resumes, setResumes] = useState<any[]>([]);
+  const navigation = useNavigate();
 
   // Simulate data loading
   useEffect(() => {
@@ -43,17 +45,15 @@ function Dashboard() {
     const fetchResumes = async () => {
       try {
         const response = await api.get("/api/cv/get-all");
-
-        // Ensure the response data is an array
         if (Array.isArray(response.data)) {
           setResumes(response.data);
         } else {
           console.error("Error: Response data is not an array");
-          setResumes([]); // Reset to empty array if data is not valid
+          setResumes([]);
         }
       } catch (error) {
         console.error("Error fetching resumes:", error);
-        setResumes([]); // Reset to empty array on error
+        setResumes([]);
       }
     };
 
@@ -74,9 +74,7 @@ function Dashboard() {
           )}
         </div>
 
-        {/* Statistics Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Total Applications */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
             {loading ? (
               <Skeleton className="h-20" />
@@ -87,15 +85,14 @@ function Dashboard() {
                 </div>
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">
-                    Total Applications
+                    სულ განაცხადები
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900">12</p>
+                  <p className="text-2xl font-semibold text-gray-900">2</p>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Interviews */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
             {loading ? (
               <Skeleton className="h-20" />
@@ -114,7 +111,6 @@ function Dashboard() {
             )}
           </div>
 
-          {/* Active Resumes */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
             {loading ? (
               <Skeleton className="h-20" />
@@ -127,18 +123,19 @@ function Dashboard() {
                   <p className="text-sm font-medium text-gray-600">
                     აქტიური რეზიუმები
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900">2</p>
+                  <p className="text-2xl font-semibold text-gray-900">
+                    {resumes.length}
+                  </p>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Recent Applications */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
           <div className="p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4">
-              Recent Applications
+              უახლესი განცხადებები
             </h2>
             <div className="overflow-x-auto">
               {loading ? (
@@ -159,7 +156,7 @@ function Dashboard() {
                         სტატუსი
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Applied Date
+                        განაცხადის თარიღი
                       </th>
                     </tr>
                   </thead>
@@ -194,8 +191,6 @@ function Dashboard() {
             </div>
           </div>
         </div>
-
-        {/* Resumes */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="p-6">
             <div className="flex justify-between items-center mb-4">
@@ -205,7 +200,10 @@ function Dashboard() {
               {loading ? (
                 <Skeleton className="h-10 w-32 rounded" />
               ) : (
-                <button className="px-4 py-2 bg-green text-white rounded-md  transition-colors">
+                <button
+                  onClick={() => navigation("/resume/edit")}
+                  className="px-4 py-2 bg-green text-white rounded-md  transition-colors"
+                >
                   შექმენი ახალი რეზიუმე
                 </button>
               )}
@@ -229,12 +227,13 @@ function Dashboard() {
                       </div>
                     </div>
                     <div className="mt-4 flex space-x-2">
-                      <button className="px-3 py-1 text-sm text-green hover:bg-blue-50 rounded">
+                      <button
+                        className="px-3 py-1 text-sm text-green hover:bg-blue-50 rounded"
+                        onClick={() => navigation(`/resume/${resume.id}`)}
+                      >
                         ნახვა
                       </button>
-                      <button className="px-3 py-1 text-sm text-green hover:bg-blue-50 rounded">
-                        ჩამოტვირთვა
-                      </button>
+
                       <button className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded">
                         წაშლა
                       </button>
@@ -242,7 +241,7 @@ function Dashboard() {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500">No resumes available</p>
+                <p className="text-gray-500">თქვენი რეზიუმების სია ცარიელია</p>
               )}
             </div>
           </div>
