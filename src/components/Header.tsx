@@ -1,9 +1,13 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { User } from "lucide-react";
 
 const Header = () => {
+  const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  console.log(isAuthenticated);
   return (
     <header className="bg-white shadow sticky ">
       <div className="max-w-7xl container mx-auto px-4 sm:px-6 lg:px-8  flex justify-between items-center">
@@ -27,19 +31,28 @@ const Header = () => {
               რეზიუმე
             </p>
           </a>
-          <Button
-            variant="ghost"
-            className="flex items-center justify-center gap-2 rounded-xl bg-green/10 px-5 py-3 transition-all hover:bg-green/20"
-          >
-            <span className="text-green">ვაკანსიის დამატება</span>
-          </Button>
-          <Button
-            variant="outline"
-            className="rounded-xl"
-            onClick={() => navigate("/login")}
-          >
-            შესვლა
-          </Button>
+          {isAuthenticated && user.role == "HR" && (
+            <Button
+              variant="ghost"
+              className="flex items-center justify-center gap-2 rounded-xl bg-green/10 px-5 py-3 transition-all hover:bg-green/20"
+            >
+              <span className="text-green">ვაკანსიის დამატება</span>
+            </Button>
+          )}
+          {!isAuthenticated ? (
+            <Button
+              variant="outline"
+              className="rounded-xl"
+              onClick={() => navigate("/login")}
+            >
+              შესვლა
+            </Button>
+          ) : (
+            <div className="flex" onClick={() => navigate("/dashboard")}>
+              <div>{user.name}</div>
+              <User className=" cursor-pointer" size={30} />
+            </div>
+          )}
         </nav>
       </div>
     </header>
