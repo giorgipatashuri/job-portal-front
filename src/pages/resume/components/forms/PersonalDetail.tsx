@@ -25,7 +25,6 @@ function PersonalDetail({ enabledNext }: PersonalDetailProps) {
     firstName: resumeInfo?.firstName || "",
     lastName: resumeInfo?.lastName || "",
     jobTitle: resumeInfo?.jobTitle || "",
-    address: resumeInfo?.address || "",
     phone: resumeInfo?.phone || "",
     email: resumeInfo?.email || "",
   });
@@ -98,15 +97,6 @@ function PersonalDetail({ enabledNext }: PersonalDetailProps) {
               name="jobTitle"
               required
               defaultValue={resumeInfo?.jobTitle}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="col-span-2">
-            <label className="text-sm">მისამართი</label>
-            <Input
-              name="address"
-              required
-              defaultValue={resumeInfo?.address}
               onChange={handleInputChange}
             />
           </div>
