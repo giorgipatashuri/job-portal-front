@@ -34,13 +34,11 @@ function Dashboard() {
   const [resumes, setResumes] = useState<any[]>([]);
   const navigation = useNavigate();
 
-  // Simulate data loading
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000); // Simulate a 2-second delay
     return () => clearTimeout(timer);
   }, []);
 
-  // Fetch CVs from the API
   useEffect(() => {
     const fetchResumes = async () => {
       try {
