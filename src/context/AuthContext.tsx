@@ -26,7 +26,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Function to fetch the user data
   const fetchUser = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -40,11 +39,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
       if (data) {
         setUser(data);
       } else {
-        setUser(null); // If user data is missing or invalid
+        setUser(null);
       }
     } catch (err) {
       console.error("Error fetching user:", err);
@@ -57,7 +55,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Fetch user on component mount
   useEffect(() => {
     fetchUser();
   }, []);
@@ -67,8 +64,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(true);
       const { data } = await api.post("auth/login", credentials);
       localStorage.setItem("token", data.token);
-      await fetchUser(); // This will update the user state
-      setError(null); // Clear any previous errors
+      await fetchUser();
+      setError(null);
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || "Login failed";
       setError(errorMessage);
@@ -109,9 +106,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isLoading,
       isAuthenticated: !!user,
       error,
-      fetchUser, // Add fetchUser to the context value
+      fetchUser,
     }),
-    [user, isLoading, error] // Dependencies remain the same since functions are stable
+    [user, isLoading, error]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
