@@ -25,15 +25,13 @@ import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useAuth } from "../../context/AuthContext";
 import { useAuthRedirect } from "../../hooks/useAuthRedirect";
 
-const Register = () => {
+const RegisterSec = () => {
   useAuthRedirect();
   const [formData, setFormData] = useState({
     name: "",
     lastname: "",
-    username: "",
     email: "",
     password: "",
-    userType: "USER",
   });
   const [errors, setErrors] = useState<any>({});
   const [loading, setLoading] = useState(false);
@@ -50,13 +48,6 @@ const Register = () => {
     if (!formData.lastname.trim()) {
       newErrors.lastname = "Last name is required";
     }
-
-    if (!formData.username.trim()) {
-      newErrors.username = "Username is required";
-    } else if (formData.username.length < 3) {
-      newErrors.username = "Username must be at least 3 characters";
-    }
-
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
