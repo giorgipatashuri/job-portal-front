@@ -62,41 +62,34 @@ const FormSection = () => {
   )?.component;
 
   return (
-    <div className="space-y-6">
-      <div className="flex  items-center">
-        <div className="text-lg font-semibold">
-          {/* Step {activeFormIndex} of {formSections.length}:
-          {
-            formSections.find((section) => section.id === activeFormIndex)
-              ?.title
-          } */}
-        </div>
-        <div className="flex gap-2">
-          {!isFirstStep && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handlePrevious}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              უკან
-            </Button>
-          )}
-        </div>
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div className="text-xl font-semibold text-gray-800"></div>
+        {!isFirstStep && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handlePrevious}
+            className="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            უკან
+          </Button>
+        )}
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         {CurrentForm && (
           <CurrentForm enabledNext={(value: boolean) => setEnableNext(value)} />
         )}
       </div>
-      <div className="flex  justify-end">
+
+      <div className="flex justify-end">
         <Button
           disabled={!enableNext}
           size="sm"
           onClick={isLastStep ? submit : handleNext}
-          className="flex items-center gap-2 bg-green self-end"
+          className="flex items-center gap-2 bg-green-500 text-white text-sm hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
         >
           {isLastStep ? "დასასრული" : "შემდეგ"}
           {!isLastStep && <ArrowRight className="w-4 h-4" />}

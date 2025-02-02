@@ -67,55 +67,75 @@ function PersonalDetail({ enabledNext }: PersonalDetailProps) {
   };
 
   return (
-    <div className="p-5 shadow-lg rounded-lg border-t-green border-t-4 mt-10">
-      <h2 className="font-bold text-lg">პერსონალური ინფორმაცია</h2>
-      <p>შეავსე საბაზისო ინფორმაცია </p>
+    <div className="p-6 shadow-lg rounded-lg border-t-4 border-t-green-500 bg-white mt-10">
+      <h2 className="font-bold text-xl mb-2 text-gray-800">
+        პერსონალური ინფორმაცია
+      </h2>
+      <p className="text-sm text-gray-600 mb-6">შეავსე საბაზისო ინფორმაცია</p>
 
       <form onSubmit={onSave}>
-        <div className="grid grid-cols-2 mt-5 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="text-sm">სახელი</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              სახელი
+            </label>
             <Input
               name="firstName"
               defaultValue={resumeInfo?.firstName}
               required
               onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
-            <label className="text-sm">გვარი</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              გვარი
+            </label>
             <Input
               name="lastName"
               required
               onChange={handleInputChange}
               defaultValue={resumeInfo?.lastName}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
-          <div className="col-span-2">
-            <label className="text-sm">პოზიცია</label>
+
+          <div className="col-span-2 mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              პოზიცია
+            </label>
             <Input
               name="jobTitle"
               required
               defaultValue={resumeInfo?.jobTitle}
               onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
+
           <div>
-            <label className="text-sm">ტელ.ნომერი</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              ტელ.ნომერი
+            </label>
             <Input
               name="phone"
               required
               defaultValue={resumeInfo?.phone}
               onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
+
           <div>
-            <label className="text-sm">ელ-მეილი</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              ელ-მეილი
+            </label>
             <Input
               name="email"
               required
               defaultValue={resumeInfo?.email}
               onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mb-20"
             />
           </div>
         </div>
