@@ -12,6 +12,7 @@ import {
 import { clsx } from "clsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import regImage from "../../assets/19184614_6101000 2.png";
 
 type RegistrationStep = "form" | "verification" | "success";
 
@@ -160,7 +161,7 @@ function App() {
       <header className="p-6 bg-transparent text-white">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-3xl font-bold">Your Logo</h1>
-          <nav>
+          {/* <nav>
             <ul className="flex space-x-6">
               <li>
                 <a href="#" className="hover:text-green-300">
@@ -183,7 +184,7 @@ function App() {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </header>
 
@@ -200,10 +201,10 @@ function App() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="bg-black/30 p-8 rounded-2xl backdrop-blur-xl border border-white/10 shadow-xl"
+                    className="bg-white/10 p-8 rounded-2xl backdrop-blur-xl border border-white/10 shadow-xl"
                   >
                     <h2 className="text-2xl font-bold text-white mb-6 text-center">
-                      Register
+                      რეგისტრაცია
                     </h2>
 
                     {/* General Error Message */}
@@ -216,17 +217,14 @@ function App() {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                       {/* First Name */}
-                      <div className="w-full">
-                        <label
-                          htmlFor="firstName"
-                          className="block text-sm font-medium text-white/80 mb-2"
-                        >
-                          First Name
-                        </label>
+                      <fieldset className="w-full">
+                        <legend className="block text-sm font-medium text-white/80 mb-2">
+                          სახელი
+                        </legend>
                         <input
                           type="text"
                           id="firstName"
-                          placeholder="Enter your first name"
+                          placeholder="შეიყვანე შენი სახელი"
                           className={inputClasses("name")}
                           value={formData.name}
                           onChange={(e) =>
@@ -239,20 +237,17 @@ function App() {
                             {getFieldError("name")}
                           </p>
                         )}
-                      </div>
+                      </fieldset>
 
                       {/* Last Name */}
-                      <div className="w-full">
-                        <label
-                          htmlFor="lastName"
-                          className="block text-sm font-medium text-white/80 mb-2"
-                        >
-                          Last Name
-                        </label>
+                      <fieldset className="w-full">
+                        <legend className="block text-sm font-medium text-white/80 mb-2">
+                          გვარი
+                        </legend>
                         <input
                           type="text"
                           id="lastName"
-                          placeholder="Enter your last name"
+                          placeholder="შეიყვანე შენი გვარი"
                           className={inputClasses("lastname")}
                           value={formData.lastname}
                           onChange={(e) =>
@@ -268,20 +263,17 @@ function App() {
                             {getFieldError("lastname")}
                           </p>
                         )}
-                      </div>
+                      </fieldset>
 
                       {/* Email */}
-                      <div className="w-full">
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-white/80 mb-2"
-                        >
-                          Email
-                        </label>
+                      <fieldset className="w-full">
+                        <legend className="block text-sm font-medium text-white/80 mb-2">
+                          ელ-ფოსტა
+                        </legend>
                         <input
                           type="email"
                           id="email"
-                          placeholder="Enter your email"
+                          placeholder="შეიყვანე შენი ელ-ფოსტა"
                           className={inputClasses("email")}
                           value={formData.email}
                           onChange={(e) =>
@@ -294,20 +286,17 @@ function App() {
                             {getFieldError("email")}
                           </p>
                         )}
-                      </div>
+                      </fieldset>
 
                       {/* Password */}
-                      <div className="w-full">
-                        <label
-                          htmlFor="password"
-                          className="block text-sm font-medium text-white/80 mb-2"
-                        >
-                          Password
-                        </label>
+                      <fieldset className="w-full">
+                        <legend className="block text-sm font-medium text-white/80 mb-2">
+                          პაროლი
+                        </legend>
                         <input
                           type="password"
                           id="password"
-                          placeholder="Create a password"
+                          placeholder="შეიყვანე შენი პაროლი"
                           className={inputClasses("password")}
                           value={formData.password}
                           onChange={(e) =>
@@ -323,7 +312,7 @@ function App() {
                             {getFieldError("password")}
                           </p>
                         )}
-                      </div>
+                      </fieldset>
 
                       <button
                         type="submit"
@@ -333,10 +322,10 @@ function App() {
                         {isLoading ? (
                           <>
                             <Loader2 className="w-5 h-5 animate-spin" />
-                            Registering...
+                            მიმდინარეობს რეგისტრაცია...
                           </>
                         ) : (
-                          "Register"
+                          "რეგისტრაცია"
                         )}
                       </button>
                     </form>
@@ -353,17 +342,17 @@ function App() {
                   >
                     <Mail className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     <h2 className="text-2xl font-bold text-white mb-4">
-                      Check your email
+                      გთხოვთ შეამოწმოთ თქვენი ელ-ფოსტა
                     </h2>
                     <p className="text-white/70 mb-6">
-                      We've sent a verification link to <br />
+                      ვერიფიკაციის <br />
                       <span className="text-white font-medium">
                         {formData.email}
                       </span>
                     </p>
                     <div className="flex items-center justify-center text-green-500 bg-green-50 py-3 px-4 rounded-lg">
                       <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                      Waiting for verification...
+                      ველოდებით ვერიფიკაციას...
                     </div>
                   </motion.div>
                 )}
@@ -386,27 +375,26 @@ function App() {
                     >
                       <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     </motion.div>
-                    <h2 className="text-2xl font-bold text-white mb-4">
-                      Welcome to HR Connect!
-                    </h2>
-                    <p className="text-white/70">
-                      Your account has been successfully verified. <br />
-                      Redirecting to your dashboard...
-                    </p>
+                    <img src="" alt="" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           </div>
 
-          {/* Right Side - Content */}
-          <div className="w-1/2 p-4 pt-16 flex items-center justify-center">
-            <div className="text-white text-center">
-              <h2 className="text-3xl font-bold mb-4">Welcome to HR Connect</h2>
-              <p className="text-lg text-white/70">
-                Join our platform to streamline your HR processes
-              </p>
-            </div>
+          <div className="w-1/2 p-4 pt-16 flex items-center justify-center flex-col text-center">
+            <h1 className="text-3xl font-bold text-white mb-4 leading-tight">
+              მოძებნე შენზე მორგებული სამსახური შენთან ახლოს
+            </h1>
+            <p className="text-lg text-green-100 mb-8 max-w-2xl leading-relaxed">
+              გაიმარტივე CV - ს შექმნის და გაგზავნის პროცედურა, მიიღე შენზე
+              მორგებული შემოთავაზებები და დაზოგე შენი დრო
+            </p>
+            <img
+              src={regImage}
+              alt="Registration Illustration"
+              className="w-full max-w-2xl"
+            />
           </div>
         </div>
       </div>
