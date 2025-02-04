@@ -54,7 +54,7 @@ function App() {
       };
 
       ws.onerror = (error) => {
-        setGeneralError("Verification connection failed. Please try again.");
+        setGeneralError("ვერიფიკაცია ვერ მოხერხდა. სცადეთ თავიდან.");
         setStep("form");
       };
 
@@ -69,7 +69,7 @@ function App() {
             }, 3000);
           }
         } catch (error) {
-          setGeneralError("Failed to process verification. Please try again.");
+          setGeneralError("ვერიფიკაცია ვერ მოხერხდა. სცადეთ თავიდან.");
           setStep("form");
         }
       };
@@ -87,28 +87,28 @@ function App() {
     if (formData.name.length < 2) {
       newErrors.push({
         field: "name",
-        message: "First name must be at least 2 characters",
+        message: "სახელი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს",
       });
     }
 
     if (formData.lastname.length < 2) {
       newErrors.push({
         field: "lastname",
-        message: "Last name must be at least 2 characters",
+        message: "გვარი უნდა შეიცავდეს მინიმუმ 2 სიმბოლოს",
       });
     }
 
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       newErrors.push({
         field: "email",
-        message: "Please enter a valid email address",
+        message: "შეიყვანეთ ვალიდური ელ-ფოსტა",
       });
     }
 
     if (formData.password.length < 8) {
       newErrors.push({
         field: "password",
-        message: "Password must be at least 8 characters",
+        message: "პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს",
       });
     }
 
@@ -134,7 +134,7 @@ function App() {
       setStep("verification");
     } catch (err: any) {
       setGeneralError(
-        err.message || "Registration failed. Please try again later."
+        err.message || "რეგისტრაცია ვერ მოხერხდა. ცადეთ ხელახლა."
       );
     } finally {
       setIsLoading(false);
