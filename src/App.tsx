@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 
 import JobCategories from "./components/JobCategories";
@@ -7,7 +6,6 @@ import Header from "./components/Header";
 import HrBanner from "./components/HrBanner";
 import { Outlet } from "react-router-dom";
 import Benefits from "./components/Benefits";
-import Login from "./pages/Login";
 import CvSection from "./components/CvSection";
 
 function App() {
