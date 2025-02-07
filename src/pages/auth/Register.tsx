@@ -375,7 +375,12 @@ function App() {
                     >
                       <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     </motion.div>
-                    <img src="" alt="" />
+                    <h2 className="text-2xl font-bold text-white mb-2">
+                      ვერიფიკაცია წარმატებულია!
+                    </h2>
+                    <p className="text-white/80">
+                      თქვენი ელ.ფოსტა წარმატებით დადასტურდა.
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
