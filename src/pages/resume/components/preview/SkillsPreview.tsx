@@ -9,7 +9,7 @@ interface SkillsPreviewProps {
 const SkillsPreview: React.FC<SkillsPreviewProps> = ({ resumeInfo }) => {
   return (
     <section className="mb-8">
-      <h3 className="text-2xl font-semibold mb-4">Skills</h3>
+      <h3 className="text-2xl font-semibold mb-4">უნარები</h3>
       <div className="flex flex-wrap gap-3">
         {resumeInfo.skills?.map(
           (skill, skillIndex) =>

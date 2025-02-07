@@ -128,7 +128,7 @@ function Skills() {
           <Button
             variant="outline"
             onClick={addNewSkill}
-            className="text-primary bg-green"
+            className="text-white bg-green"
             type="button"
           >
             უნარის დამატება
@@ -136,7 +136,7 @@ function Skills() {
           <Button
             variant="outline"
             onClick={removeSkill}
-            className="text-primary bg-green"
+            className="text-white bg-green"
             type="button"
             disabled={skillsList.length <= 1}
           >
