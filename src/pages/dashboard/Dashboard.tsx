@@ -1,37 +1,22 @@
-import { Briefcase, ScrollText, User } from "lucide-react";
+import { Briefcase, Eye, ScrollText, Trash, User } from "lucide-react";
 import Header from "../../components/Header";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import api from "../../lib/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "../../hooks/use-toast";
 
 // Skeleton component
 const Skeleton = ({ className }: any) => (
   <div className={`animate-pulse bg-gray-300 ${className}`} />
 );
 
-const applications = [
-  {
-    id: 1,
-    company: "Tech Corp",
-    position: "Senior Developer",
-    status: "In Review",
-    appliedDate: "2024-03-15",
-  },
-  {
-    id: 2,
-    company: "Digital Solutions",
-    position: "Frontend Engineer",
-    status: "Interviewed",
-    appliedDate: "2024-03-10",
-  },
-];
-
 function Dashboard() {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [resumes, setResumes] = useState<any[]>([]);
+  const [applications, setApplications] = useState<any[]>([]);
   const navigation = useNavigate();
 
   useEffect(() => {
@@ -55,8 +40,46 @@ function Dashboard() {
       }
     };
 
+    const fetchApplications = async () => {
+      try {
+        const response = await api.get("/api/applications/user");
+        if (Array.isArray(response.data)) {
+          const formattedApplications = response.data.map((app) => ({
+            id: app.id,
+            company: app.job.company.companyName,
+            position: app.job.jobName,
+            status: app.status,
+            appliedDate: new Date(app.appliedAt).toLocaleDateString(),
+          }));
+          setApplications(formattedApplications);
+        } else {
+          console.error("Error: Response data is not an array");
+          setApplications([]);
+        }
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+        setApplications([]);
+      }
+    };
+
     fetchResumes();
+    fetchApplications();
   }, []);
+  const handleDelete = async (cvId: any) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found");
+
+      await api.delete(`/api/cv/${cvId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setResumes((prevResumes) =>
+        prevResumes.filter((resume) => resume.id !== cvId)
+      );
+    } catch (error) {
+      console.error("Error deleting CV:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -85,7 +108,9 @@ function Dashboard() {
                   <p className="text-sm font-medium text-gray-600">
                     სულ განაცხადები
                   </p>
-                  <p className="text-2xl font-semibold text-gray-900">2</p>
+                  <p className="text-2xl font-semibold text-gray-900">
+                    {applications.length}
+                  </p>
                 </div>
               </div>
             )}
@@ -150,9 +175,9 @@ function Dashboard() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         პოზიცია
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         სტატუსი
-                      </th>
+                      </th> */}
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         განაცხადის თარიღი
                       </th>
@@ -167,19 +192,18 @@ function Dashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {application.position}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                              application.status === "In Review"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-green-100 text-green-800"
-                            }`}
-                          >
-                            {application.status}
-                          </span>
-                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                           {application.appliedDate}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <button
+                            onClick={() =>
+                              navigation(`/job/${application.job?.id}`)
+                            }
+                            className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 px-2 py-2 rounded-md"
+                          >
+                            <Eye size={18} /> ვაკანსიის ნახვა
+                          </button>
                         </td>
                       </tr>
                     ))}
@@ -220,20 +244,23 @@ function Dashboard() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium text-gray-900">
-                          {resume.jobTitle} {/* Update to jobTitle */}
+                          {resume.jobTitle}
                         </h3>
                       </div>
                     </div>
                     <div className="mt-4 flex space-x-2">
                       <button
-                        className="px-3 py-1 text-sm text-green hover:bg-blue-50 rounded"
+                        className="flex items-center gap-2 px-3 py-1 text-sm text-green-600 hover:bg-blue-50 rounded"
                         onClick={() => navigation(`/resume/${resume.id}`)}
                       >
-                        ნახვა
+                        <Eye size={16} /> ნახვა
                       </button>
 
-                      <button className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded">
-                        წაშლა
+                      <button
+                        className="flex items-center gap-2 px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded"
+                        onClick={() => handleDelete(resume.id)}
+                      >
+                        <Trash size={16} /> წაშლა
                       </button>
                     </div>
                   </div>
