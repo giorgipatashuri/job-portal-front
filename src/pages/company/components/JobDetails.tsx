@@ -18,23 +18,6 @@ interface JobDetailsProps {
   onBack: () => void;
 }
 
-// This would typically come from an API
-const jobDetail = {
-  id: 1,
-  title: "Senior Software Engineer",
-  department: "Engineering",
-  location: "San Francisco, CA",
-  salary: "$120,000 - $180,000",
-  type: "FULL_TIME",
-  description:
-    "We are seeking an experienced Software Engineer to join our dynamic team. The ideal candidate will have a strong background in full-stack development and a passion for creating scalable solutions.",
-  requirements:
-    "- 5+ years of experience in software development\n- Strong proficiency in React, Node.js, and TypeScript\n- Experience with cloud platforms (AWS/GCP)\n- Excellent problem-solving skills\n- Strong communication abilities",
-  posted: "2024-02-15",
-  applicants: 45,
-  companyId: "COMP123",
-};
-
 function JobDetails({ jobId, onBack }: JobDetailsProps) {
   const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
   const [jobDetail, setJobDetail] = useState<any>(null);

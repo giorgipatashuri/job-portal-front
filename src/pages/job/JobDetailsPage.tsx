@@ -91,13 +91,13 @@ export function JobDetailsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
+          <div className="">
+            <div className="bg-white lg:col-span-2 space-y-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-lg shadow-sm p-6"
+                className="bg-white  shadow-sm p-6"
               >
                 <h2 className="text-xl font-semibold mb-4">სამუსაოს აღწერა</h2>
                 <p className="text-gray-600 whitespace-pre-line">
@@ -109,7 +109,7 @@ export function JobDetailsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white rounded-lg shadow-sm p-6"
+                className="bg-white  shadow-sm p-6"
               >
                 <h2 className="text-xl font-semibold mb-4">მოთხოვნები </h2>
                 <ul className="list-disc list-inside space-y-2 text-gray-600">

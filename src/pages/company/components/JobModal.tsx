@@ -37,7 +37,9 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-lg w-full max-w-2xl mx-4">
         <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-800">Post New Job</h2>
+          <h2 className="text-xl font-semibold text-gray-800">
+            დადევი ახალი განცხადება
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700"
@@ -50,7 +52,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Job Title
+                ვაკანსიის დასახელება
               </label>
               <input
                 type="text"
@@ -65,7 +67,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Description
+                აღწერა
               </label>
               <textarea
                 required
@@ -81,7 +83,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Location
+                  ადგილმდებარეობა
                 </label>
                 <input
                   type="text"
@@ -96,7 +98,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Salary
+                  ხელფასი
                 </label>
                 <input
                   type="text"
@@ -112,7 +114,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Requirements
+                მოთხოვნები
               </label>
               <textarea
                 required
@@ -127,7 +129,7 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Job Type
+                დასაქმების ტიპი
               </label>
               <select
                 required
@@ -155,13 +157,13 @@ function JobModal({ isOpen, onClose, onSubmit }: JobModalProps) {
               onClick={onClose}
               className="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-50"
             >
-              Cancel
+              უარყოფა
             </button>
             <button
               type="submit"
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
             >
-              Post Job
+              ვაკანსიის განთავსება
             </button>
           </div>
         </form>
