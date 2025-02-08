@@ -18,7 +18,7 @@ const Header = () => {
     logout();
     navigate("/");
   };
-  console.log(company);
+  // console.log(company);
   const navLinkClasses =
     "relative flex items-center gap-2 font-medium text-gray-600 px-4 py-2 rounded-lg transition-all hover:text-green-600 group";
   const iconClasses = "w-5 h-5 transition-colors";
