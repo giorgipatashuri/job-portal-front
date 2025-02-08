@@ -102,7 +102,7 @@ function CompanyLogin() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-green-800 flex flex-col">
       <header className="p-6 bg-transparent text-white">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Your Logo</h1>
+          <h1 className="text-3xl font-bold">TalentHub</h1>
         </div>
       </header>
 
