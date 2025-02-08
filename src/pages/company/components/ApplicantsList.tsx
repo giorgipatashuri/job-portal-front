@@ -1,49 +1,47 @@
-import React, { useState } from 'react';
-import { Search, Filter } from 'lucide-react';
-import ApplicantDetails from './ApplicantDetails';
-
-const applicants = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    email: 'sarah.j@example.com',
-    position: 'Senior Software Engineer',
-    status: 'In Review',
-    appliedDate: '2024-02-15',
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    email: 'michael.c@example.com',
-    position: 'Product Manager',
-    status: 'Interviewed',
-    appliedDate: '2024-02-14',
-  },
-  {
-    id: 3,
-    name: 'Emily Davis',
-    email: 'emily.d@example.com',
-    position: 'UX Designer',
-    status: 'New',
-    appliedDate: '2024-02-13',
-  },
-];
-
-const statusColors = {
-  New: 'bg-blue-100 text-blue-800',
-  'In Review': 'bg-yellow-100 text-yellow-800',
-  Interviewed: 'bg-green-100 text-green-800',
-};
+import { useEffect, useState } from "react";
+import ApplicantDetails from "./ApplicantDetails";
+import { Search, Filter } from "lucide-react";
+import api, { apiForCompany } from "../../../lib/api";
 
 function ApplicantsList() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedApplicantId, setSelectedApplicantId] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedApplicant, setSelectedApplicant] = useState<any>(null);
+  const [applicants, setApplicants] = useState<any>([]);
 
-  if (selectedApplicantId !== null) {
+  useEffect(() => {
+    fetchApplications();
+  }, []);
+
+  const fetchApplications = async () => {
+    try {
+      const response = await apiForCompany.get("/api/applications/company");
+      console.log("ssdd", response.data);
+      if (Array.isArray(response.data)) {
+        const formattedApplications = response.data.map((app) => ({
+          id: app.id,
+          company: app.job.company.companyName,
+          user: app.user,
+          cv: app.cv,
+          coverLetter: app.coverLetter,
+          position: app.job.jobName,
+          status: app.status,
+          appliedDate: new Date(app.appliedAt).toLocaleDateString(),
+        }));
+        setApplicants(formattedApplications);
+      } else {
+        console.error("Error: Response data is not an array");
+        setApplicants([]);
+      }
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      setApplicants([]);
+    }
+  };
+  if (selectedApplicant !== null) {
     return (
       <ApplicantDetails
-        applicantId={selectedApplicantId}
-        onBack={() => setSelectedApplicantId(null)}
+        applicant={selectedApplicant}
+        onBack={() => setSelectedApplicant(null)}
       />
     );
   }
@@ -51,7 +49,7 @@ function ApplicantsList() {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Applicants</h2>
+        <h2 className="text-2xl font-bold text-gray-800">აპლიკანტები</h2>
         <div className="flex space-x-4">
           <div className="relative">
             <input
@@ -78,43 +76,44 @@ function ApplicantsList() {
           <thead>
             <tr className="bg-gray-50 border-b">
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Name
+                სახელი
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Position
+                პოზიცია
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Applied Date
+                გაგზავნის თარიღი
               </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {applicants.map((applicant) => (
+            {applicants.map((applicant: any) => (
               <tr
                 key={applicant.id}
                 className="hover:bg-gray-50 cursor-pointer"
-                onClick={() => setSelectedApplicantId(applicant.id)}
+                onClick={() => setSelectedApplicant(applicant)}
               >
                 <td className="px-6 py-4">
                   <div>
                     <div className="font-medium text-gray-900">
-                      {applicant.name}
+                      {applicant.user.name} {applicant.user.lastname}
                     </div>
                     <div className="text-gray-500">{applicant.email}</div>
                   </div>
                 </td>
-                <td className="px-6 py-4 text-gray-500">{applicant.position}</td>
+                <td className="px-6 py-4 text-gray-500">
+                  {applicant.position}
+                </td>
                 <td className="px-6 py-4">
-                  <span
+                  {/* <span
                     className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      statusColors[applicant.status as keyof typeof statusColors]
+                      statusColors[
+                        applicant.status as keyof typeof statusColors
+                      ]
                     }`}
                   >
                     {applicant.status}
-                  </span>
+                  </span> */}
                 </td>
                 <td className="px-6 py-4 text-gray-500">
                   {new Date(applicant.appliedDate).toLocaleDateString()}
