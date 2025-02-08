@@ -43,12 +43,14 @@ function Dashboard() {
     const fetchApplications = async () => {
       try {
         const response = await api.get("/api/applications/user");
+        console.log(response.data);
         if (Array.isArray(response.data)) {
           const formattedApplications = response.data.map((app) => ({
             id: app.id,
             company: app.job.company.companyName,
             position: app.job.jobName,
             status: app.status,
+            job: app.job,
             appliedDate: new Date(app.appliedAt).toLocaleDateString(),
           }));
           setApplications(formattedApplications);
@@ -198,7 +200,7 @@ function Dashboard() {
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
                             onClick={() =>
-                              navigation(`/job/${application.job?.id}`)
+                              navigation(`/jobs/${application.job?.id}`)
                             }
                             className="flex items-center gap-2 text-white bg-green-600 hover:bg-green-700 px-2 py-2 rounded-md"
                           >
