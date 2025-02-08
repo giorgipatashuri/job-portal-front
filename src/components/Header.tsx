@@ -70,7 +70,7 @@ const Header = () => {
               >
                 შესვლა
               </Button>
-            ) : company ? ( // 🔹 Show this for company users
+            ) : company ? (
               <div className="relative group">
                 <div
                   className="flex items-center gap-3 cursor-pointer px-4 py-2 rounded-lg hover:bg-gray-50/80 transition-all border border-transparent hover:border-emerald-100"
